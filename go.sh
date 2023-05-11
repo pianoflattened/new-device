@@ -108,7 +108,7 @@ sudo wget -nv --show-progress -O /usr/local/bin/yt-dlp https://github.com/yt-dlp
 echo "alias yt-dlp='yt-dlp --config-location ~/.config/yt-dlp/yt-dlp.conf'" >> ~/.bashrc
 mkdir ~/vid/yt
 
-wget -nv --show-progress -O pia.run $(curl -s https://www.privateinternetaccess.com/installer/download_installer_linux_beta | python3 pia.py)
+wget -nv --show-progress -O pia.run $(curl -s https://www.privateinternetaccess.com/installer/download_installer_linux_beta | python3 bs.py "parsed.head.find('meta', attrs={'http-equiv':'refresh'})['content'].split('; url=')[-1]")
 chmod +x pia.run; ./pia.run; rm pia.run
 
 wget -nv --show-progress -O gimp-resynth.zip https://www.gimp-forum.net/attachment.php?aid=6867
@@ -140,3 +140,6 @@ Type=Application
 Categories=Application;Network;Music;
 Path=
 StartupNotify=true" | sed "s/~/\/home\/$(whoami)/" > ~/.local/share/applications/slsk.desktop
+
+wget -nv --show-progress -O go.tar.gz $(curl -s https://go.dev/dl/ | python3 bs.py "'https://go.dev' + parsed.body.find('a', attrs={'href':re.compile('/dl/go[0-9]+\.[0-9]+\.[0-9]+\.linux-amd64\.tar\.gz')})['href']"); sudo tar -C /usr/local -xzf go.tar.gz; rm go.tar.gz
+echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee -a /etc/profile; source /etc/profile

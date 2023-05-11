@@ -11,4 +11,5 @@ currently:
 - firmware for my laptop
 - installs wine, winetricks
 - installs blueman, pia
-- installs avidemux, discord, gimp, micro, slsk, vlc
+- installs avidemux, discord, gimp, micro, slsk, vlc, yt-dlp
+- installs golang, pip3
