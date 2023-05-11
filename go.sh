@@ -101,6 +101,7 @@ wget -nv --show-progress https://addons.mozilla.org/en-US/firefox/addon/ublock-o
 sudo apt install ffmpeg fuse-overlayfs gimp libass-dev mtp-tools strace usbutils vlc xclip xsel
 pip3 install BeautifulSoup4
 cd /usr/local/bin; curl https://getmic.ro | sudo bash; cd -
+git config --global core.editor "micro"
 wget -nv --show-progress -O discord.deb "https://discord.com/api/download?platform=linux&format=deb"
 sudo apt install ./discord.deb; rm ./discord.deb
 
