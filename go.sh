@@ -1,6 +1,6 @@
-echo 'export PATH=$PATH:~/.local/bin' >> ~/.bashrc
 mkdir ~/.local/bin
 mkdir ~/.local/lib
+echo 'export PATH=$PATH:~/.local/bin' >> ~/.bashrc
 
 # default folder names
 echo 'XDG_DESKTOP_DIR="$HOME/dsk"
@@ -91,9 +91,9 @@ xfconf-query -c xfwm4 -p /general/theme -s "Qogir-dark"
 xfconf-query -c xsettings -p /Net/IconThemeName -s "Qogir-dark"
 
 
-# firefox extensions
-mkdir firefox-ext
-wget -nv --show-progress https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/
+# firefox extensions -- later lol
+# mkdir firefox-ext
+# wget -nv --show-progress https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/
 
 
 # software installs
