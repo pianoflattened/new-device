@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=
+Name=SoulSeek
+Comment=an ad-free, spyware free, just plain free file sharing network
+Exec=~/.local/bin/slsk %U
+Icon=~/.local/lib/slsk.png
+Terminal=false
+StartupWMClass=SoulSeek
+Type=Application
+Categories=Application;Network;Music;
