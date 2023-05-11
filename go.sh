@@ -14,7 +14,6 @@ XDG_VIDEOS_DIR="$HOME/vid"' | tee ~/.config/user-dirs.dirs
 mv ~/Desktop ~/dsk; mv ~/Downloads ~/tmp; mv ~/Documents ~/doc; mv ~/Music ~/aud; mv ~/Pictures ~/img; mv ~/Videos ~/vid
 mv ~/Public/* ~/dsk; mkdir ~/doc/templates; mv ~/Templates ~/doc/templates
 xdg-user-dirs-update
-mkdir ~/bin
 
 # desktop
 mkdir ~/dsk/drawer; mv ~/dsk/* ~/dsk/drawer
@@ -115,7 +114,7 @@ chmod +x pia.run; ./pia.run; rm pia.run
 wget -nv --show-progress -O gimp-resynth.zip https://www.gimp-forum.net/attachment.php?aid=6867
 unzip gimp-resynth.zip -d resynthesizer; mv resynthesizer/* ~/.config/GIMP/2.10/plug-ins/; rmdir resynthesizer
 wget -nv --show-progress -O gimp.AppImage https://github.com/TasMania17/Gimp-Appimages-Made-From-Debs/releases/download/Gimp-Python2-AppImage-Launchers-for-Linux/gimp-python2-fuse-overlay-launcher-mx-linux21-1.AppImage
-chmod +x gimp.AppImage; mv gimp.AppImage ~/bin/gimp-py2; echo "alias gimp-2.10='gimp-py2'" >> ~/.bashrc 
+chmod +x gimp.AppImage; mv gimp.AppImage ~/.local/bin/gimp-py2; echo "alias gimp-2.10='gimp-py2'" >> ~/.bashrc 
 
 wget -nv --show-progress https://cytranet.dl.sourceforge.net/project/avidemux/avidemux/2.8.1/avidemux_2.8.1.tar.gz
 tar -xzf avidemux_2.8.1.tar.gz; cd avidemux_2.8.1; bash createDebFromSourceUbuntu.bash --deps-only
