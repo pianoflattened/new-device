@@ -97,7 +97,7 @@ xfconf-query -c xsettings -p /Net/IconThemeName -s "Qogir-dark"
 
 
 # software installs
-sudo apt install ffmpeg fuse-overlayfs gimp libass-dev mtp-tools strace usbutils vlc xclip xsel
+sudo apt install ffmpeg fuse-overlayfs gimp libass-dev mtp-tools python2 strace usbutils vlc xclip xsel
 pip3 install BeautifulSoup4
 cd /usr/local/bin; curl https://getmic.ro | sudo bash; cd -
 git config --global core.editor "micro"
@@ -114,7 +114,9 @@ chmod +x pia.run; ./pia.run; rm pia.run
 wget -nv --show-progress -O gimp-resynth.zip https://www.gimp-forum.net/attachment.php?aid=6867
 unzip gimp-resynth.zip -d resynthesizer; mv resynthesizer/* ~/.config/GIMP/2.10/plug-ins/; rmdir resynthesizer
 wget -nv --show-progress -O gimp.AppImage https://github.com/TasMania17/Gimp-Appimages-Made-From-Debs/releases/download/Gimp-Python2-AppImage-Launchers-for-Linux/gimp-python2-fuse-overlay-launcher-mx-linux21-1.AppImage
-chmod +x gimp.AppImage; mv gimp.AppImage ~/.local/bin/gimp-py2; echo "alias gimp-2.10='gimp-py2'" >> ~/.bashrc 
+chmod +x gimp.AppImage; mv gimp.AppImage ~/.local/bin/gimp-py2
+cp ./gimp.desktop ~/.local/share/applications/gimp.desktop; sed -i "s/~/\/home\/$(whoami)/" ~/.local/share/applications/gimp.desktop
+
 
 wget -nv --show-progress https://cytranet.dl.sourceforge.net/project/avidemux/avidemux/2.8.1/avidemux_2.8.1.tar.gz
 tar -xzf avidemux_2.8.1.tar.gz; cd avidemux_2.8.1; bash createDebFromSourceUbuntu.bash --deps-only
@@ -140,6 +142,8 @@ Type=Application
 Categories=Application;Network;Music;
 Path=
 StartupNotify=true" | sed "s/~/\/home\/$(whoami)/" > ~/.local/share/applications/slsk.desktop
+chmod +x ~/.local/share/applications/slsk.desktop
 
 wget -nv --show-progress -O go.tar.gz $(curl -s https://go.dev/dl/ | python3 bs.py "'https://go.dev' + parsed.body.find('a', attrs={'href':re.compile('/dl/go[0-9]+\.[0-9]+\.[0-9]+\.linux-amd64\.tar\.gz')})['href']"); sudo tar -C /usr/local -xzf go.tar.gz; rm go.tar.gz
 echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee -a /etc/profile; source /etc/profile
+echo 'export GOPATH=$HOME/.local/lib/go' >> ~/.bashrc
