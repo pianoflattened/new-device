@@ -74,7 +74,7 @@ sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-bui
 sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/bullseye/winehq-bullseye.sources
 
 sudo apt update
-sudo apt install blueman firmware-iwlwifi firmware-linux git python3-pip sassc
+sudo apt install blueman firmware-iwlwifi firmware-linux git sassc
 sudo modprobe -r iwlwifi; sudo modprobe iwlwifi
 
 sudo apt install --install-recommends winehq-stable
@@ -97,8 +97,7 @@ xfconf-query -c xsettings -p /Net/IconThemeName -s "Qogir-dark"
 
 
 # software installs
-sudo apt install audacity default-jre deluge ffmpeg fuse-overlayfs gimp gpick libass-dev maven mtp-tools obs-studio python2 strace usbutils v4l2loopback-dkms v4l2loopback-utils vlc xclip xpad xsel
-pip3 install BeautifulSoup4
+sudo apt install audacity default-jre deluge ffmpeg fuse-overlayfs gimp gpick libass-dev libxml2-utils mtp-tools obs-studio python2 python3-pip strace usbutils v4l2loopback-dkms v4l2loopback-utils vlc xclip xpad xsel
 cd /usr/local/bin; curl https://getmic.ro | sudo bash; cd -
 git config --global core.editor "micro"
 wget -nv --show-progress -O discord.deb "https://discord.com/api/download?platform=linux&format=deb"
@@ -108,7 +107,8 @@ sudo wget -nv --show-progress -O /usr/local/bin/yt-dlp https://github.com/yt-dlp
 echo "alias yt-dlp='yt-dlp --config-location ~/.config/yt-dlp/yt-dlp.conf'" >> ~/.bashrc
 mkdir ~/vid/yt
 
-wget -nv --show-progress -O pia.run $(curl -s https://www.privateinternetaccess.com/installer/download_installer_linux_beta | python3 bs.py "parsed.head.find('meta', attrs={'http-equiv':'refresh'})['content'].split('; url=')[-1]")
+wget -nv --show-progress -O pia.run $(curl -s https://www.privateinternetaccess.com/installer/download_installer_linux_beta | xmllint --html --format --xpath 'string(.//head//meta[@http-equiv="refresh"]//@content)' 2>/dev/null - | sed 's/0; url=//')
+
 chmod +x pia.run; ./pia.run; rm pia.run
 
 wget -nv --show-progress -O gimp-resynth.zip https://www.gimp-forum.net/attachment.php?aid=6867
@@ -144,10 +144,11 @@ Path=
 StartupNotify=true" | sed "s/~/\/home\/$(whoami)/" > ~/.local/share/applications/slsk.desktop
 chmod +x ~/.local/share/applications/slsk.desktop
 
-wget -nv --show-progress -O go.tar.gz $(curl -s https://go.dev/dl/ | python3 bs.py "'https://go.dev' + parsed.body.find('a', attrs={'href':re.compile('/dl/go[0-9]+\.[0-9]+\.[0-9]+\.linux-amd64\.tar\.gz')})['href']"); sudo tar -C /usr/local -xzf go.tar.gz; rm go.tar.gz
+wget -nv --show-progress -O go.tar.gz $(curl -s https://go.dev/dl/ | xmllint xmllint --html --format --xpath './/body//a[contains(@href, ".linux-amd64.tar.gz") and contains(@class, "downloadBox")]//@href' 2>/dev/null -); sudo tar -C /usr/local -xzf go.tar.gz; rm go.tar.gz
+
 echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee -a /etc/profile; source /etc/profile
 echo 'export GOPATH=$HOME/.local/lib/go' >> ~/.bashrc
 
 # tuxguitar; yeah... im a genius
-wget -O tuxguitar.deb $(curl -s $(curl -s "https://sourceforge.net"$(curl -s https://sourceforge.net/projects/tuxguitar/files/TuxGuitar/ | python3 bs.py "parsed.body.select_one('tbody tr th[headers=\"files_name_h\"] a')['href']") | python3 bs.py "parsed.body.select('a[title*=\"linux-x86_64.deb\"]')[0]['href']") | python3 bs.py "parsed.body.select('a[href*=\"linux-x86_64.deb\"]')[0]['href'].split('?')[0]")
+wget -O tuxguitar.deb $(curl -s $(curl -s "https://sourceforge.net"$(curl -s https://sourceforge.net/projects/tuxguitar/files/TuxGuitar/ | xmllint --html --format --xpath 'string(.//body//tbody//tr[1]//th[@headers="files_name_h"]//a//@href)' 2>/dev/null -) | xmllint --html --format --xpath 'string(.//body//a[contains(@title, "linux-x86_64.deb")]//@href)' 2>/dev/null -) | xmllint --html --format --xpath 'string(.//body//a[contains(@href, "linux-x86_64.deb")]//@href)' 2>/dev/null - | cut -f 1 -d "?")
 sudo dpkg -i tuxguitar.deb; rm tuxguitar.deb
