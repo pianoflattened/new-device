@@ -150,4 +150,4 @@ echo 'export GOPATH=$HOME/.local/lib/go' >> ~/.bashrc
 
 # tuxguitar; yeah... im a genius
 wget -O tuxguitar.deb $(curl -s $(curl -s "https://sourceforge.net"$(curl -s https://sourceforge.net/projects/tuxguitar/files/TuxGuitar/ | python3 bs.py "parsed.body.select_one('tbody tr th[headers=\"files_name_h\"] a')['href']") | python3 bs.py "parsed.body.select('a[title*=\"linux-x86_64.deb\"]')[0]['href']") | python3 bs.py "parsed.body.select('a[href*=\"linux-x86_64.deb\"]')[0]['href'].split('?')[0]")
-sudo dpkg -i tuxgutar.deb; rm tuxguitar.deb
+sudo dpkg -i tuxguitar.deb; rm tuxguitar.deb
