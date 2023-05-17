@@ -97,7 +97,7 @@ xfconf-query -c xsettings -p /Net/IconThemeName -s "Qogir-dark"
 
 
 # software installs
-sudo apt install ffmpeg fuse-overlayfs gimp libass-dev mtp-tools python2 strace usbutils vlc xclip xsel
+sudo apt install audacity default-jre deluge ffmpeg fuse-overlayfs gimp gpick libass-dev maven mtp-tools obs-studio python2 strace usbutils v4l2loopback-dkms v4l2loopback-utils vlc xclip xpad xsel
 pip3 install BeautifulSoup4
 cd /usr/local/bin; curl https://getmic.ro | sudo bash; cd -
 git config --global core.editor "micro"
@@ -147,3 +147,7 @@ chmod +x ~/.local/share/applications/slsk.desktop
 wget -nv --show-progress -O go.tar.gz $(curl -s https://go.dev/dl/ | python3 bs.py "'https://go.dev' + parsed.body.find('a', attrs={'href':re.compile('/dl/go[0-9]+\.[0-9]+\.[0-9]+\.linux-amd64\.tar\.gz')})['href']"); sudo tar -C /usr/local -xzf go.tar.gz; rm go.tar.gz
 echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee -a /etc/profile; source /etc/profile
 echo 'export GOPATH=$HOME/.local/lib/go' >> ~/.bashrc
+
+# tuxguitar; yeah... im a genius
+wget -O tuxguitar.deb $(curl -s $(curl -s "https://sourceforge.net"$(curl -s https://sourceforge.net/projects/tuxguitar/files/TuxGuitar/ | python3 bs.py "parsed.body.select_one('tbody tr th[headers=\"files_name_h\"] a')['href']") | python3 bs.py "parsed.body.select('a[title*=\"linux-x86_64.deb\"]')[0]['href']") | python3 bs.py "parsed.body.select('a[href*=\"linux-x86_64.deb\"]')[0]['href'].split('?')[0]")
+sudo dpkg -i tuxgutar.deb; rm tuxguitar.deb
